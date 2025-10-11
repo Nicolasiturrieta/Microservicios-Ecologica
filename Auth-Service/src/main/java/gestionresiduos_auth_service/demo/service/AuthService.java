@@ -1,10 +1,12 @@
 package gestionresiduos_auth_service.demo.service;
 
-import com.gestioresiduos.auth.dto.*;
-import com.gestioresiduos.auth.repository.*;
+import java.util.stream.Collectors;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.util.stream.*;
+
+import gestionresiduos_auth_service.demo.dto.LoginRequest;
+import gestionresiduos_auth_service.demo.repository.UsuarioRepository;
 
 @Service
 public class AuthService {

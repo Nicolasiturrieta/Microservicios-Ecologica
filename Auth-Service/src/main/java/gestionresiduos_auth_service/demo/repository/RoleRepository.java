@@ -1,11 +1,11 @@
 package gestionresiduos_auth_service.demo.repository;
 
-import gestionresiduos_auth_service.demo.model.*;
-import org.springframework.data.jpa.repository.*;
-import java.util.*;
+import java.util.Optional;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-    Optional<Usuario> findByUsername(String username);
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    boolean existsByUsername(String username);
+import gestionresiduos_auth_service.demo.model.Role;
+
+public interface RoleRepository extends JpaRepository<Role, Long> {
+    Optional<Role> findByNombre(String nombre);
 }
