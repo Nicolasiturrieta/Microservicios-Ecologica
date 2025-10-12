@@ -1,0 +1,71 @@
+server:
+  port: 8080
+
+application:
+  security:
+    jwt:
+      secret: "Tassoiturrieta"
+
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - RemoveRequestHeader=Cookie
+      routes:
+        # Rutas públicas (sin token)
+        - id: auth
+          uri: http://localhost:8081
+          predicates:
+            - Path=/auth/**, /usuarios/**
+          # sin filtros de rol
+
+        # Solo ADMIN
+        - id: cliente
+          uri: http://localhost:8082
+          predicates: [ Path=/clientes/** ]
+          filters:
+            - name: roleGuard
+              args:
+                anyRole: ADMIN
+
+        - id: vehiculo
+          uri: http://localhost:8083
+          predicates: [ Path=/vehiculos/** ]
+          filters:
+            - name: roleGuard
+              args:
+                anyRole: ADMIN
+
+        - id: material
+          uri: http://localhost:8084
+          predicates: [ Path=/tipos-material/**, /tipos-carga/**, /contenedor*/** ]
+          filters:
+            - name: roleGuard
+              args:
+                anyRole: ADMIN
+
+        - id: ruta
+          uri: http://localhost:8085
+          predicates: [ Path=/rutas/**, /ruta-puntos/** ]
+          filters:
+            - name: roleGuard
+              args:
+                anyRole: ADMIN
+
+        # ADMIN o CHOFER
+        - id: despacho
+          uri: http://localhost:8086
+          predicates: [ Path=/despacho/** ]
+          filters:
+            - name: roleGuard
+              args:
+                anyRole: ADMIN,CHOFER
+
+      # CORS global (habilita acceso desde tu app web/móvil)
+      globalcors:
+        corsConfigurations:
+          "[/**]":
+            allowedOrigins: "http://localhost:3000, http://127.0.0.1:3000"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
