@@ -1,0 +1,25 @@
+# Maven/Gradle
+target/
+.mvn/wrapper/maven-wrapper.jar
+.gradle/
+**/build/
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+out/
+bin/
+.settings/
+nbproject/
+
+# Logs / SO
+logs/
+*.log
+.DS_Store
+Thumbs.db
+
+# Android (por si se mezcla)
+local.properties
+.cxx/
+captures/
