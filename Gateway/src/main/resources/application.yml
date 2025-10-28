@@ -1,10 +1,10 @@
 server:
-  port: 8080
+  port: ${PORT:8080}
 
 application:
   security:
     jwt:
-      secret: "Tassoiturrieta"
+      secret: ${tassoiturrieta2025}
 
 spring:
   cloud:
@@ -12,60 +12,38 @@ spring:
       default-filters:
         - RemoveRequestHeader=Cookie
       routes:
-        # Rutas públicas (sin token)
         - id: auth
-          uri: http://localhost:8081
+          uri: http://auth-service:8080
           predicates:
-            - Path=/auth/**, /usuarios/**
-          # sin filtros de rol
-
-        # Solo ADMIN
-        - id: cliente
-          uri: http://localhost:8082
-          predicates: [ Path=/clientes/** ]
-          filters:
-            - name: roleGuard
-              args:
-                anyRole: ADMIN
-
-        - id: vehiculo
-          uri: http://localhost:8083
-          predicates: [ Path=/vehiculos/** ]
-          filters:
-            - name: roleGuard
-              args:
-                anyRole: ADMIN
-
-        - id: material
-          uri: http://localhost:8084
-          predicates: [ Path=/tipos-material/**, /tipos-carga/**, /contenedor*/** ]
-          filters:
-            - name: roleGuard
-              args:
-                anyRole: ADMIN
-
+            - Path=/auth/**
+        - id: clientes
+          uri: http://clientes:8080
+          predicates:
+            - Path=/clientes/**
         - id: ruta
-          uri: http://localhost:8085
-          predicates: [ Path=/rutas/**, /ruta-puntos/** ]
-          filters:
-            - name: roleGuard
-              args:
-                anyRole: ADMIN
-
-        # ADMIN o CHOFER
+          uri: http://ruta:8080
+          predicates:
+            - Path=/ruta/**
         - id: despacho
-          uri: http://localhost:8086
-          predicates: [ Path=/despacho/** ]
-          filters:
-            - name: roleGuard
-              args:
-                anyRole: ADMIN,CHOFER
-
-      # CORS global (habilita acceso desde tu app web/móvil)
+          uri: http://despacho:8080
+          predicates:
+            - Path=/despacho/**
+        - id: material
+          uri: http://material:8080
+          predicates:
+            - Path=/material/**
+        - id: vehiculos
+          uri: http://vehiculos:8080
+          predicates:
+            - Path=/vehiculos/**
       globalcors:
         corsConfigurations:
           "[/**]":
-            allowedOrigins: "http://localhost:3000, http://127.0.0.1:3000"
+            allowedOrigins: "*"
             allowedMethods: "*"
             allowedHeaders: "*"
             allowCredentials: true
+
+logging:
+  level:
+    root: INFO
