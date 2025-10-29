@@ -12,6 +12,7 @@ spring:
       default-filters:
         - RemoveRequestHeader=Cookie
       routes:
+<<<<<<< HEAD
         - id: auth
           uri: http://auth-service:8080
           predicates:
@@ -34,6 +35,61 @@ spring:
             - Path=/material/**
         - id: vehiculos
           uri: http://vehiculos:8080
+=======
+        # API-prefixed routes for mobile app (strip /api)
+        - id: api-auth
+          uri: ${AUTH_URL:http://auth-service:8080}
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=1
+        - id: api-clientes-admin
+          uri: ${CLIENTES_URL:http://clientes:8080}
+          predicates:
+            - Path=/api/admin/clientes
+          filters:
+            - RewritePath=/api/admin/clientes, /clientes
+        - id: api-rutas
+          uri: ${RUTA_URL:http://ruta:8080}
+          predicates:
+            - Path=/api/rutas/**
+          filters:
+            - RewritePath=/api/rutas/?(?<segment>.*), /rutas/${segment}
+        - id: api-ordenes
+          uri: ${DESPACHO_URL:http://despacho:8080}
+          predicates:
+            - Path=/api/ordenes/**
+          filters:
+            - RewritePath=/api/ordenes/?(?<segment>.*), /ordenes-servicio/${segment}
+        - id: api-vehiculos
+          uri: ${VEHICULOS_URL:http://vehiculos:8080}
+          predicates:
+            - Path=/api/vehiculos/**
+          filters:
+            - StripPrefix=1
+        - id: auth
+          uri: ${AUTH_URL:http://auth-service:8080}
+          predicates:
+            - Path=/auth/**
+        - id: clientes
+          uri: ${CLIENTES_URL:http://clientes:8080}
+          predicates:
+            - Path=/clientes/**
+        - id: ruta
+          uri: ${RUTA_URL:http://ruta:8080}
+          predicates:
+            - Path=/ruta/**
+        - id: despacho
+          uri: ${DESPACHO_URL:http://despacho:8080}
+          predicates:
+            - Path=/despacho/**
+        - id: material
+          uri: ${MATERIAL_URL:http://material:8080}
+          predicates:
+            - Path=/material/**
+        - id: vehiculos
+          uri: ${VEHICULOS_URL:http://vehiculos:8080}
+>>>>>>> 47c8da7 (ajustes)
           predicates:
             - Path=/vehiculos/**
       globalcors:

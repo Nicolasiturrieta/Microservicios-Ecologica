@@ -27,6 +27,13 @@ public class RutaService {
         return rRepo.findAll();
     }
 
+<<<<<<< HEAD
+=======
+    public Ruta porId(Long id) {
+        return rRepo.findById(id).orElseThrow();
+    }
+
+>>>>>>> 47c8da7 (ajustes)
     public RutaPunto agregarPunto(RutaPunto rp) {
         return pRepo.save(rp);
     }
@@ -34,4 +41,8 @@ public class RutaService {
     public List<RutaPunto> puntos(Long rutaId) {
         return pRepo.findByRutaIdOrderByOrdenAsc(rutaId);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 47c8da7 (ajustes)

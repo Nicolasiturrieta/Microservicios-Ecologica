@@ -18,7 +18,19 @@ import reactor.core.publisher.Mono;
 @Component
 public class AuthHeaderFilter implements GlobalFilter, Ordered {
 
+<<<<<<< HEAD
   private static final List<String> PUBLIC_PATTERNS = List.of("/auth/", "/usuarios/");
+=======
+  private static final List<String> PUBLIC_PATTERNS = List.of(
+      "/auth/", 
+      "/usuarios/",
+      "/api/auth/",
+      "/api/usuarios/",
+      "/clientes/",
+      "/api/clientes/",
+      "/api/admin/clientes"
+  );
+>>>>>>> 47c8da7 (ajustes)
   private final JwtUtil jwt;
 
   public AuthHeaderFilter(JwtUtil jwt) {
