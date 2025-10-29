@@ -17,9 +17,4 @@ public class HealthController {
         status.put("timestamp", String.valueOf(System.currentTimeMillis()));
         return status;
     }
-    
-    @GetMapping("/")
-    public String home() {
-        return "Gateway Microservicios Ecológicos - Funcionando correctamente";
-    }
 }
