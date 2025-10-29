@@ -3,10 +3,7 @@ package gestionresiduos_ruta.demo.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-<<<<<<< HEAD
-=======
 import org.springframework.web.bind.annotation.PathVariable;
->>>>>>> 47c8da7 (ajustes)
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,13 +30,9 @@ public class RutaController {
     public List<Ruta> listar() {
         return svc.listarRutas();
     }
-<<<<<<< HEAD
-}
-=======
 
     @GetMapping("/{id}")
     public Ruta porId(@PathVariable Long id) {
         return svc.porId(id);
     }
 }
->>>>>>> 47c8da7 (ajustes)

@@ -1,10 +1,9 @@
 server:
   port: ${PORT:8080}
 
-application:
-  security:
-    jwt:
-      secret: ${tassoiturrieta2025}
+security:
+  jwt:
+    secret: ${JWT_SECRET:tassoiturrieta2025}
 
 spring:
   cloud:
@@ -12,30 +11,6 @@ spring:
       default-filters:
         - RemoveRequestHeader=Cookie
       routes:
-<<<<<<< HEAD
-        - id: auth
-          uri: http://auth-service:8080
-          predicates:
-            - Path=/auth/**
-        - id: clientes
-          uri: http://clientes:8080
-          predicates:
-            - Path=/clientes/**
-        - id: ruta
-          uri: http://ruta:8080
-          predicates:
-            - Path=/ruta/**
-        - id: despacho
-          uri: http://despacho:8080
-          predicates:
-            - Path=/despacho/**
-        - id: material
-          uri: http://material:8080
-          predicates:
-            - Path=/material/**
-        - id: vehiculos
-          uri: http://vehiculos:8080
-=======
         # API-prefixed routes for mobile app (strip /api)
         - id: api-auth
           uri: ${AUTH_URL:http://auth-service:8080}
@@ -89,7 +64,6 @@ spring:
             - Path=/material/**
         - id: vehiculos
           uri: ${VEHICULOS_URL:http://vehiculos:8080}
->>>>>>> 47c8da7 (ajustes)
           predicates:
             - Path=/vehiculos/**
       globalcors:

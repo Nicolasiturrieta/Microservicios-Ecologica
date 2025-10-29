@@ -16,6 +16,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name="usuarios")
@@ -24,10 +25,9 @@ import lombok.NoArgsConstructor;
 public class Usuario {
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id;
   @Column(unique=true,nullable=false) private String username;
-  @Column(nullable=false) private String passwordHash;
+  @Column(nullable=false) @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) private String passwordHash;
   private String nombre; private String apellido; private String email; private Boolean activo=true;
   @ManyToMany(fetch=FetchType.EAGER)
   @JoinTable(name="usuario_rol", joinColumns=@JoinColumn(name="usuario_id"), inverseJoinColumns=@JoinColumn(name="rol_id"))
   private Set<Role> roles;
 }
-
